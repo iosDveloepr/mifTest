@@ -7,23 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F13A5A5020D1A8AB00FD0364 /* ReminderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A5A4F20D1A8AB00FD0364 /* ReminderProtocol.swift */; };
 		F1D8145E20CF16E900E65F93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D8145D20CF16E900E65F93 /* AppDelegate.swift */; };
-		F1D8146020CF16E900E65F93 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D8145F20CF16E900E65F93 /* ViewController.swift */; };
+		F1D8146020CF16E900E65F93 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D8145F20CF16E900E65F93 /* MainViewController.swift */; };
 		F1D8146320CF16E900E65F93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1D8146120CF16E900E65F93 /* Main.storyboard */; };
 		F1D8146620CF16E900E65F93 /* mifTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1D8146420CF16E900E65F93 /* mifTest.xcdatamodeld */; };
 		F1D8146820CF16EA00E65F93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1D8146720CF16EA00E65F93 /* Assets.xcassets */; };
 		F1D8146B20CF16EA00E65F93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1D8146920CF16EA00E65F93 /* LaunchScreen.storyboard */; };
+		F1D8147320CF175400E65F93 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D8147220CF175400E65F93 /* MainTableViewCell.swift */; };
+		F1D8147620CF1BA200E65F93 /* AddReminderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D8147520CF1BA200E65F93 /* AddReminderVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F13A5A4F20D1A8AB00FD0364 /* ReminderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderProtocol.swift; sourceTree = "<group>"; };
 		F1D8145A20CF16E900E65F93 /* mifTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mifTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D8145D20CF16E900E65F93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F1D8145F20CF16E900E65F93 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F1D8145F20CF16E900E65F93 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F1D8146220CF16E900E65F93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F1D8146520CF16E900E65F93 /* mifTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mifTest.xcdatamodel; sourceTree = "<group>"; };
 		F1D8146720CF16EA00E65F93 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1D8146A20CF16EA00E65F93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1D8146C20CF16EA00E65F93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1D8147220CF175400E65F93 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		F1D8147520CF1BA200E65F93 /* AddReminderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +43,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F102F67720D26AEA006154F8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F1D8146120CF16E900E65F93 /* Main.storyboard */,
+				F1D8146920CF16EA00E65F93 /* LaunchScreen.storyboard */,
+				F1D8147220CF175400E65F93 /* MainTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F102F67820D26B0E006154F8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F1D8146420CF16E900E65F93 /* mifTest.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		F1D8145120CF16E900E65F93 = {
 			isa = PBXGroup;
 			children = (
@@ -57,14 +81,23 @@
 			isa = PBXGroup;
 			children = (
 				F1D8145D20CF16E900E65F93 /* AppDelegate.swift */,
-				F1D8145F20CF16E900E65F93 /* ViewController.swift */,
-				F1D8146120CF16E900E65F93 /* Main.storyboard */,
+				F102F67820D26B0E006154F8 /* Model */,
+				F102F67720D26AEA006154F8 /* View */,
+				F1D8147420CF1B6300E65F93 /* Controllers */,
 				F1D8146720CF16EA00E65F93 /* Assets.xcassets */,
-				F1D8146920CF16EA00E65F93 /* LaunchScreen.storyboard */,
 				F1D8146C20CF16EA00E65F93 /* Info.plist */,
-				F1D8146420CF16E900E65F93 /* mifTest.xcdatamodeld */,
+				F13A5A4F20D1A8AB00FD0364 /* ReminderProtocol.swift */,
 			);
 			path = mifTest;
+			sourceTree = "<group>";
+		};
+		F1D8147420CF1B6300E65F93 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F1D8145F20CF16E900E65F93 /* MainViewController.swift */,
+				F1D8147520CF1BA200E65F93 /* AddReminderVC.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,7 +172,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1D8146620CF16E900E65F93 /* mifTest.xcdatamodeld in Sources */,
-				F1D8146020CF16E900E65F93 /* ViewController.swift in Sources */,
+				F1D8146020CF16E900E65F93 /* MainViewController.swift in Sources */,
+				F1D8147320CF175400E65F93 /* MainTableViewCell.swift in Sources */,
+				F1D8147620CF1BA200E65F93 /* AddReminderVC.swift in Sources */,
+				F13A5A5020D1A8AB00FD0364 /* ReminderProtocol.swift in Sources */,
 				F1D8145E20CF16E900E65F93 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,6 +323,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 49C7VLRV8W;
 				INFOPLIST_FILE = mifTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -305,6 +342,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 49C7VLRV8W;
 				INFOPLIST_FILE = mifTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
