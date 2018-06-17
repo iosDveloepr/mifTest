@@ -10,4 +10,5 @@ import Foundation
 
 protocol ReminderDelegate {
     func addReminder(value: Reminder)
+   
 }

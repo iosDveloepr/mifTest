@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F13A5A5020D1A8AB00FD0364 /* ReminderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A5A4F20D1A8AB00FD0364 /* ReminderProtocol.swift */; };
+		F18C485520D5BCF900FCB7FB /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C485420D5BCF900FCB7FB /* CoreDataManager.swift */; };
 		F1D8145E20CF16E900E65F93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D8145D20CF16E900E65F93 /* AppDelegate.swift */; };
 		F1D8146020CF16E900E65F93 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D8145F20CF16E900E65F93 /* MainViewController.swift */; };
 		F1D8146320CF16E900E65F93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1D8146120CF16E900E65F93 /* Main.storyboard */; };
@@ -16,10 +17,12 @@
 		F1D8146B20CF16EA00E65F93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1D8146920CF16EA00E65F93 /* LaunchScreen.storyboard */; };
 		F1D8147320CF175400E65F93 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D8147220CF175400E65F93 /* MainTableViewCell.swift */; };
 		F1D8147620CF1BA200E65F93 /* AddReminderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D8147520CF1BA200E65F93 /* AddReminderVC.swift */; };
+		F1E2C1FB20D66B8900F6C78C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E2C1FA20D66B8900F6C78C /* Notification.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F13A5A4F20D1A8AB00FD0364 /* ReminderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderProtocol.swift; sourceTree = "<group>"; };
+		F18C485420D5BCF900FCB7FB /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F1D8145A20CF16E900E65F93 /* mifTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mifTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D8145D20CF16E900E65F93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1D8145F20CF16E900E65F93 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -30,6 +33,7 @@
 		F1D8146C20CF16EA00E65F93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1D8147220CF175400E65F93 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		F1D8147520CF1BA200E65F93 /* AddReminderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderVC.swift; sourceTree = "<group>"; };
+		F1E2C1FA20D66B8900F6C78C /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,8 @@
 				F1D8146720CF16EA00E65F93 /* Assets.xcassets */,
 				F1D8146C20CF16EA00E65F93 /* Info.plist */,
 				F13A5A4F20D1A8AB00FD0364 /* ReminderProtocol.swift */,
+				F18C485420D5BCF900FCB7FB /* CoreDataManager.swift */,
+				F1E2C1FA20D66B8900F6C78C /* Notification.swift */,
 			);
 			path = mifTest;
 			sourceTree = "<group>";
@@ -175,7 +181,9 @@
 				F1D8146020CF16E900E65F93 /* MainViewController.swift in Sources */,
 				F1D8147320CF175400E65F93 /* MainTableViewCell.swift in Sources */,
 				F1D8147620CF1BA200E65F93 /* AddReminderVC.swift in Sources */,
+				F1E2C1FB20D66B8900F6C78C /* Notification.swift in Sources */,
 				F13A5A5020D1A8AB00FD0364 /* ReminderProtocol.swift in Sources */,
+				F18C485520D5BCF900FCB7FB /* CoreDataManager.swift in Sources */,
 				F1D8145E20CF16E900E65F93 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

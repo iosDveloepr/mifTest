@@ -13,8 +13,16 @@ import UserNotifications
 class AddReminderVC: UIViewController, UITextFieldDelegate {
 
     var managedObject: NSManagedObjectContext!
+
     var reminder: Reminder?
     var delegate: ReminderDelegate?
+    var reminderToChange: Reminder?
+    let centre = UNUserNotificationCenter.current()
+    
+    @IBOutlet weak var editLabel: UILabel!
+    @IBOutlet weak var saveBtnOutlet: UIButton!
+    @IBOutlet weak var editBtnOutlet: UIButton!
+    @IBOutlet weak var cancelBtnOutlet: UIButton!
     
     
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -25,13 +33,29 @@ class AddReminderVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         managedObject = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-         reminderTextField.delegate = self
-         messageTextField.delegate = self
-
+        managedObject = CoreDataManager.sharedManager.persistentContainer.viewContext
+        
+        reminderTextField.delegate = self
+        messageTextField.delegate = self
+        
+        setupUI()
+    }
+    
+    private func setupUI(){
+        if reminderToChange != nil {
+            saveBtnOutlet.isHidden = true
+            cancelBtnOutlet.isHidden = true
+            editLabel.text = "Edit reminder"
+            reminderTextField.text = reminderToChange?.title
+            messageTextField.text = reminderToChange?.message
+        } else {
+            editBtnOutlet.isHidden = true
+            editLabel.text = ""
+        }
     }
     
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    
         reminderTextField.resignFirstResponder()
         messageTextField.resignFirstResponder()
         return true
@@ -48,7 +72,8 @@ class AddReminderVC: UIViewController, UITextFieldDelegate {
             
             let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute, .second], from: datePicker.date)
             
-            setNotification(title: title, message: message, time: triggerDate, identifier: uuid)
+           // setNotification(title: title, message: message, time: triggerDate, identifier: uuid)
+             Notification.setNotification(title: reminderTextField.text!, message: messageTextField.text!, time: triggerDate, identifier: uuid)
             saveToCoreData(title: title, message: message, date: datePicker.date, id: uuid)
             
             reminderTextField.text = ""
@@ -57,6 +82,7 @@ class AddReminderVC: UIViewController, UITextFieldDelegate {
         } else {
             errorAlert()
         }
+        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -71,43 +97,63 @@ class AddReminderVC: UIViewController, UITextFieldDelegate {
         self.reminder = reminderObject
         delegate?.addReminder(value: reminder!)
         
-        do{
-            try self.managedObject.save()
-        } catch {
-            print (error.localizedDescription)
+
+        CoreDataManager.sharedManager.trySave(managedObject: managedObject)
+    }
+    
+    
+    @IBAction func editReminder(_ sender: UIButton) {
+        
+        if reminderTextField.text != "" && messageTextField.text != "" {
+            
+            centre.removePendingNotificationRequests(withIdentifiers: [(reminderToChange?.id)!])
+            
+            reminderToChange?.setValue(reminderTextField.text, forKey: "title")
+            reminderToChange?.setValue(messageTextField.text, forKey: "message")
+            reminderToChange?.setValue(datePicker.date, forKey: "date")
+            
+            let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute, .second], from: datePicker.date)
+            
+//            setNotification(title: reminderTextField.text!, message: messageTextField.text!, time: triggerDate, identifier: (reminderToChange?.id)!)
+            
+            Notification.setNotification(title: reminderTextField.text!, message: messageTextField.text!, time: triggerDate, identifier: (reminderToChange?.id)!)
+            
+          CoreDataManager.sharedManager.trySave(managedObject: managedObject)
+            
         }
     }
     
     
+//    private func setNotification (title: String, message: String, time : DateComponents, identifier : String){
+//     
+//        let content = UNMutableNotificationContent()
+//        content.title = title
+//        content.body = message
+//        content.sound = UNNotificationSound.default()
+//        
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: time, repeats: false)
+//        let center = UNUserNotificationCenter.current()
+//        let request = UNNotificationRequest(identifier: identifier,
+//                                            content: content,
+//                                            trigger: trigger)
+//        center.add(request, withCompletionHandler: { (error) in
+//            if error != nil {
+//                print(error?.localizedDescription ?? "Nil error")
+//            }
+//        })
+//    }
     
-    private func setNotification (title: String, message: String, time : DateComponents, identifier : String){
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = message
-        content.sound = UNNotificationSound.default()
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: time, repeats: false)
-        let center = UNUserNotificationCenter.current()
-        let request = UNNotificationRequest(identifier: identifier,
-                                            content: content,
-                                            trigger: trigger)
-        center.add(request, withCompletionHandler: { (error) in
-            if error != nil {
-                print(error?.localizedDescription ?? "Nil error")
-            }
-        })
-    }
     
-    
-    @IBAction func cancelButton(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func errorAlert(){
+  func errorAlert(){
         let alert = UIAlertController(title: "Both text fields must be filled", message: "please complete the process", preferredStyle: .alert)
         let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(ok)
         present(alert, animated: true)
     }
     
-}
+    @IBAction func cancellButton(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+} // class

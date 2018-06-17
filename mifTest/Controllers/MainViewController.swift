@@ -14,23 +14,32 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var reminders = [Reminder]()
     var managedObject: NSManagedObjectContext!
+   
     let centre = UNUserNotificationCenter.current()
+    let date = Date()
     
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
+   @IBOutlet weak var tableView: UITableView!
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-          managedObject = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-          loadData()
+        managedObject = CoreDataManager.sharedManager.persistentContainer.viewContext
+        loadData()
         
+        tableView.estimatedRowHeight = 140
+        tableView.rowHeight = UITableViewAutomaticDimension
         
-          tableView.estimatedRowHeight = 140
-          tableView.rowHeight = UITableViewAutomaticDimension
-    
+        let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        tableView.reloadData()
+    }
+    
+
     
     private func loadData(){
        
@@ -42,28 +51,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         } catch {
             print (error.localizedDescription)
         }
-        
-        
-        // Код для удаление старых напоминаний
-        
-//        for rem in reminders{
-//            let remTime = rem.date?.description(with: .current)
-//            let currenTime = Date().description(with: .current)
-//            if remTime! < currenTime {
-//
-//                managedObject.delete(rem)
-//                reminders.remove(at: rem.faultingState)
-//                centre.removeDeliveredNotifications(withIdentifiers: [rem.id!])
-//
-//                do {
-//                    try managedObject.save()
-//                } catch {
-//                    print(error.localizedDescription)
-//                }
-//
-//                tableView.reloadData()
-//            }
-//        }
     }
 
     
@@ -71,7 +58,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "reminderVC") as! AddReminderVC
         present(vc, animated: true)
         vc.delegate = self
-    }
+     }
     
     
     
@@ -84,25 +71,25 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! MainTableViewCell
         
         let rem = reminders[indexPath.row]
-   
-        cell.titleLabel.text =  rem.title
-        cell.messageLabel.text = rem.message
-        if let date = rem.date{
-            cell.dateLabel.text = stringFromDate(date: date)
+        cell.reminder = rem
+        
+        if self.date > rem.date!{
+            cell.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 1.0)
+            cell.messageLabel.textColor = .white
+            cell.titleLabel.textColor = .white
+            cell.dateLabel.textColor = .white
         }
+        
+        if self.date < rem.date!{
+            cell.backgroundColor = UIColor(red: 0.2392, green: 0.9569, blue: 0.9569, alpha: 1.0)
+            cell.messageLabel.textColor = .black
+            cell.titleLabel.textColor = .black
+            cell.dateLabel.textColor = .black
+        }
+        
         return cell
     }
     
-    
-    private func stringFromDate(date: Date) -> String {
-        let formater = DateFormatter()
-        formater.dateStyle = .short
-        formater.timeStyle = .short
-        let locale = Locale.current
-        formater.locale = locale
-        return formater.string(from: date)
-    }
-
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -116,16 +103,26 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             managedObject.delete(toRemove)
             reminders.remove(at: indexPath.row)
         
+            self.centre.removePendingNotificationRequests(withIdentifiers: [toRemove.id!])
             
-            self.centre.removeDeliveredNotifications(withIdentifiers: [toRemove.id!])
-            
-            do {
-                try managedObject.save()
-            } catch {
-                print(error.localizedDescription)
-            }
+            CoreDataManager.sharedManager.trySave(managedObject: managedObject)
 
             tableView.deleteRows(at: [indexPath], with: .fade)
+        }   
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+           let reminder = reminders[indexPath.row]
+           performSegue(withIdentifier: "toEditReminder", sender: reminder)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toEditReminder"{
+            let destinationVC = segue.destination as! AddReminderVC
+            destinationVC.reminderToChange = sender as? Reminder
+     
         }
     }
     
@@ -140,6 +137,7 @@ extension MainViewController: ReminderDelegate{
         self.tableView.reloadData()
         print(value)
     }
+
 }
 
 

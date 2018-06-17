@@ -14,18 +14,25 @@ class MainTableViewCell: UITableViewCell {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
-    
-    
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    var reminder: Reminder?{
+        didSet{
+            titleLabel.text = reminder?.title
+            messageLabel.text = reminder?.message
+            
+            if let date = reminder?.date{
+                dateLabel.text = stringFromDate(date: date)
+            }
+        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    private func stringFromDate(date: Date) -> String {
+        let formater = DateFormatter()
+        formater.dateStyle = .short
+        formater.timeStyle = .short
+        let locale = Locale.current
+        formater.locale = locale
+        return formater.string(from: date)
     }
+    
 
 }
