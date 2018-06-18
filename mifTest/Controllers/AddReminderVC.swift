@@ -114,34 +114,16 @@ class AddReminderVC: UIViewController, UITextFieldDelegate {
             
             let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute, .second], from: datePicker.date)
             
-//            setNotification(title: reminderTextField.text!, message: messageTextField.text!, time: triggerDate, identifier: (reminderToChange?.id)!)
-            
-            Notification.setNotification(title: reminderTextField.text!, message: messageTextField.text!, time: triggerDate, identifier: (reminderToChange?.id)!)
+          Notification.setNotification(title: reminderTextField.text!, message: messageTextField.text!, time: triggerDate, identifier: (reminderToChange?.id)!)
             
           CoreDataManager.sharedManager.trySave(managedObject: managedObject)
             
+            
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
-    
-//    private func setNotification (title: String, message: String, time : DateComponents, identifier : String){
-//     
-//        let content = UNMutableNotificationContent()
-//        content.title = title
-//        content.body = message
-//        content.sound = UNNotificationSound.default()
-//        
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: time, repeats: false)
-//        let center = UNUserNotificationCenter.current()
-//        let request = UNNotificationRequest(identifier: identifier,
-//                                            content: content,
-//                                            trigger: trigger)
-//        center.add(request, withCompletionHandler: { (error) in
-//            if error != nil {
-//                print(error?.localizedDescription ?? "Nil error")
-//            }
-//        })
-//    }
+
     
     
   func errorAlert(){

@@ -54,11 +54,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     
-    @IBAction func presentDataPicker(_ sender: UIBarButtonItem) {
+  
+    @IBAction func presentDataPicker(_ sender: UIButton) {
+        
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "reminderVC") as! AddReminderVC
         present(vc, animated: true)
         vc.delegate = self
-     }
+    }
     
     
     

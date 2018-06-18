@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
         }
+        
+        UIApplication.shared.statusBarStyle = .lightContent
         // Override point for customization after application launch.
         return true
         
